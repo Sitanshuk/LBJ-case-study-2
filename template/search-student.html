@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LTI case-study 2 - Search Student</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row-p-5">
+    <div class="col-sm-6">
+      <div class="btn-group-justified">
+        <a href="add-student" class="btn btn-primary" role="button">Add new Student</a>
+        <a href="search-student" class="btn btn-primary" role="button">Search for a Student by Id</a>
+        <a href="display-all-student" class="btn btn-primary" role="button">Display all the Students</a>
+      </div>
+      <h1>Search By:</h1>
+      {% if success %}
+        <div class="alert alert-success alert-dismissible fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Record Entered
+        </div>
+      {% endif %}
+      <form action="search-student" method="POST">
+        <div class="form-group">
+          <label for="StudentId">Student Id</label>
+          <input type="text" class="form-control" id="StudentId" name="StudentId" placeholder="Enter Student Id">
+        </div>
+        <p>Or</p>
+        <div class="form-group">
+          <label for="studentName">Student Name</label>
+          <input type="text" class="form-control" id="studentName" name="Name" placeholder="Enter Student Name">
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row-p-5">
+    <div class="col">
+      {% if results %}
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-order = '[[1, "desc"]]'>
+        <thead>
+          <tr>
+            <th>Student Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Date Of Birth</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Email Id</th>
+            <th>Qualification</th>
+            <th>Stream</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Student Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Date Of Birth</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Email Id</th>
+            <th>Qualification</th>
+            <th>Stream</th>
+          </tr>
+        </tfoot>
+        <tbody>
+        {% for record in results %}
+          <tr>
+            <td>{{record.StudentId }}</td>
+            <td>{{record.Name }}</td>
+            <td>{{record.Gender }}</td>
+            <td>{{record.DateOfBirth }}</td>
+            <td>{{record.City }}</td>
+            <td>{{record.State }}</td>
+            <td>{{record.EmailId }}</td>
+            <td>{{record.Qualification }}</td>
+            <td>{{record.Stream }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
