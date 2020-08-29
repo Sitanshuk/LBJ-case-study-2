@@ -29,7 +29,7 @@ def search(request):
         if data:
             with open('students.csv', 'r') as file:
                 reader = csv.DictReader(file)
-                for row in reader:      
+                for row in reader:
                     for key, value in zip(data.keys(), data.values()):          
                         if row[key] == value:
                             results.append(row)
